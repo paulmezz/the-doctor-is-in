@@ -1,0 +1,30 @@
+Some coworkers have a screen outside their office area which displays
+which people are "in" or "out".  They have it plugged into a raspberry
+pi with a bluetooth dongle which is paired to everyone's phones.
+
+We are hoping to make a less "hacky" version of that code.  
+
+Design goals:
+
+Multiple screens in communication with each other.
+	instead of "in" or "out" it can specify location too
+		"Emilio is OUT and in Research Computing"
+	fedmsg may be the backend for this
+
+Ease method of pairing devices.  
+	Perhaps even sniffing wireless and just looking for a mac address
+
+Simple management interface
+	Web pages are pretty.  Lets manage from that.  
+	A single management interface for all screens perhaps?
+
+Portability
+	No Raspberry?  Who cares. "Linux" would be the main requirment
+
+Headless capability
+	A display isn't needed in the data center, but having a 
+	checkpoint in there would be handy
+
+Secure(ish)
+	Make it hard to man-in-the-middle or inject messages.
+	Make it easy to opt-out/in
