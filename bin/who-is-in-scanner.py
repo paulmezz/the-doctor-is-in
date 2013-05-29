@@ -31,7 +31,7 @@ bluetooth_addresses = dict(
     pebble='00:18:33:E4:F2:F0',
     threebean='4C:BC:A5:1A:9F:57',
     paulmezz='80:96:B1:54:84:B5',
-    noname='00:00:00:00:00:01',
+    chuck='CC:08:E0:16:A2:7C',
 )
 
 
