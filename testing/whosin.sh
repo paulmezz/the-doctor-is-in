@@ -11,6 +11,8 @@ declare -A btaddr
 btaddr[Karen]='5C:6B:32:49:36:B6'
 btaddr[Emilio]='04:E4:51:10:10:B0'
 btaddr[Pebble]='00:18:33:E4:F2:F0'
+btaddr[threebean]='4C:BC:A5:1A:9F:57'
+btaddr[paulmezz]='80:96:B1:54:84:B5'
 btaddr[noname]='00:00:00:00:00:01'
 
 for i in "${!btaddr[@]}"
