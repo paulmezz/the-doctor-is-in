@@ -17,7 +17,7 @@ example ping to bt device::
 from __future__ import print_function
 
 import argparse
-import shelve
+import json
 import pprint
 import os
 import sys
@@ -45,14 +45,16 @@ bluetooth_addresses = dict(
 )
 
 
-def set_value(doctors, key, newval):
-    if key in doctors and doctors[key] is newval:
-        # Nothing changed.
+def set_value(doctors, key, subkey, newval):
+    if key in doctors and \
+       subkey in doctors[key] and \
+       doctors[key][subkey] is newval:
+        # Then, nothing changed.
         pass
     else:
-        doctors[key] = newval
+        doctors[key] = doctors.get(key, {})
+        doctors[key][subkey] = newval
         # TODO -- emit a message to the world here
-        print("%r CHANGED to %r" % (key, newval))
 
 
 def ping_all(args, doctors):
@@ -64,19 +66,29 @@ def ping_all(args, doctors):
                 print("  * Checking %r -> %r" % (key, btaddr))
             result = os.system(cmd.format(btaddr=btaddr))
             newval = result is 0
-            set_value(doctors, key, newval)
+            set_value(doctors, username, device, newval)
 
 
 def ping_all_and_cache(args):
+
     if args.verbose:
         print("Opening cache %r" % args.cache)
-    doctors = shelve.open(args.cache)
+
+    try:
+        with open(args.cache, 'r') as f:
+            doctors = json.loads(f.read())
+    except IOError:
+        print("Couldn't read %r.  Starting afresh." % args.cache)
+        doctors = {}
+
     ping_all(args, doctors)
+
     if args.verbose:
         print("DB is %r" % pprint.pformat(doctors))
-    if args.verbose:
         print("Closing cache")
-    doctors.sync()
+
+    with open(args.cache, 'w') as f:
+        f.write(json.dumps(doctors, indent=4))
 
 
 def parse_args():
