@@ -26,12 +26,22 @@ import time
 cmd = "sudo l2ping {btaddr} -c 3 > /dev/null 2>&1"
 
 bluetooth_addresses = dict(
-    karen='5C:6B:32:49:36:B6',
-    emilio='04:E4:51:10:10:B0',
-    pebble='00:18:33:E4:F2:F0',
-    threebean='4C:BC:A5:1A:9F:57',
-    paulmezz='80:96:B1:54:84:B5',
-    chuck='CC:08:E0:16:A2:7C',
+    karen=dict(
+        phone='5C:6B:32:49:36:B6',
+    ),
+    emilio=dict(
+        phone='04:E4:51:10:10:B0',
+        pebble='00:18:33:E4:F2:F0',
+    ),
+    threebean=dict(
+        phone='4C:BC:A5:1A:9F:57',
+    ),
+    paulmezz=dict(
+        phone='80:96:B1:54:84:B5',
+    ),
+    chuck=dict(
+        phone='CC:08:E0:16:A2:7C',
+    ),
 )
 
 
@@ -47,12 +57,14 @@ def set_value(doctors, key, newval):
 
 def ping_all(args, doctors):
     print("* Pinging all")
-    for username, btaddr in bluetooth_addresses.items():
-        if args.verbose:
-            print("  * Checking %r -> %r" % (username, btaddr))
-        result = os.system(cmd.format(btaddr=btaddr))
-        newval = result is 0
-        set_value(doctors, username, newval)
+    for username, btaddrs in bluetooth_addresses.items():
+        for device, btaddr in btaddrs.items():
+            key = "%s/%s" % (username, device)
+            if args.verbose:
+                print("  * Checking %r -> %r" % (key, btaddr))
+            result = os.system(cmd.format(btaddr=btaddr))
+            newval = result is 0
+            set_value(doctors, key, newval)
 
 
 def ping_all_and_cache(args):
