@@ -1,1 +1,5 @@
-lucy		ALL=(/bin/l2ping)	NOPASSWD: ALL
+# Cmnd alias specification
+Cmnd_Alias L2PING = /usr/bin/l2ping
+
+# User privilege specification
+lucy	ALL=L2PING, NOPASSWD: L2PING
