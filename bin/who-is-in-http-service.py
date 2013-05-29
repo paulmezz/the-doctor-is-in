@@ -7,7 +7,7 @@
 """
 
 import flask
-import shelve
+import json
 
 
 app = flask.Flask(__name__)
@@ -22,11 +22,9 @@ debug = False
 
 @app.route("/")
 def hello():
-    d = shelve.open(cache)
-    try:
-        return flask.jsonify(d)
-    finally:
-        d.close()
+    with open(cache, 'r') as f:
+        d = json.loads(f.read())
+    return flask.jsonify(d)
 
 
 if __name__ == "__main__":
