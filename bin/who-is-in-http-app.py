@@ -78,10 +78,6 @@ def get_all_usernames():
     return list(results)
 
 
-def get_location_data(location):
-    raise NotImplementedError("wat")
-
-
 @app.route("/")
 def front():
     all_usernames = get_all_usernames()
