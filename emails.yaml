@@ -1,2 +1,6 @@
+# This is a supplementary YAML config file used by the master app.
+# If scanned users are listed here, we'll use this email address
+# to lookup their avatar image from gravatar.com
+
 threebean: rbean@redhat.com
 paulmezz: paul@themezz.com
