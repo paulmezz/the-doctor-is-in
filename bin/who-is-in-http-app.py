@@ -16,8 +16,8 @@ import urllib
 import hashlib
 
 app = flask.Flask(__name__)
-email_file = default_email_file = "emails.yaml"
-children_file = default_children_file = "children.yaml"
+email_file = default_email_file = "etc/emails.yaml"
+children_file = default_children_file = "etc/children.yaml"
 children = None
 known_emails = None
 

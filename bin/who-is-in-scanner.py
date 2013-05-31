@@ -26,7 +26,7 @@ import time
 
 cmd = "sudo l2ping {btaddr} -c 3 > /dev/null 2>&1"
 
-default_bluetooth_addresses_file = "bluetooth.yaml"
+default_bluetooth_addresses_file = "etc/bluetooth.yaml"
 
 
 def set_value(doctors, key, subkey, newval):
