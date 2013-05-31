@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """ "who is in" via python
     Ralph Bean 05/29/2013
+    License: GPLv2+
 
 based on
 
@@ -76,12 +77,14 @@ def ping_all_and_cache(args, bluetooth_addresses):
 
 
 def parse_args():
-    """ who-is-in-scanner.py [OPTIONS]
+    """ $ who-is-in-scanner.py [OPTIONS]
 
     Background process that scans bluetooth for persons,
     and caches state to disk.
 
     Needs to be run as root or with passwordless sudo for l2ping.
+
+    License: GPLv2+
     """
     parser = argparse.ArgumentParser(usage=parse_args.__doc__)
     parser.add_argument(
