@@ -1,0 +1,6 @@
+# This is a YAML file that should list *all* of the scanning nodes.
+# The master webapp will use this list to figure out where to query
+# to find out where everyone is.
+
+here: http://localhost:9123
+#somewhere_else: http://fancy.rit.edu:9991

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Doctor is In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="static/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="static/css/site.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="static/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="static/ico/apple-touch-icon-144-precomposed.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="static/ico/apple-touch-icon-114-precomposed.png"/>
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="static/ico/apple-touch-icon-72-precomposed.png"/>
+                    <link rel="apple-touch-icon-precomposed" href="static/ico/apple-touch-icon-57-precomposed.png"/>
+                                   <link rel="shortcut icon" href="static/ico/favicon.png"/>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">The Doctor is In</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+          <h1>Where are these people?</h1>
+          <p>We're monitoring select persons via bluetooth.  Do you know where they are?</p>
+        <p><a href="https://github.com/paulmezz/the-doctor-is-in/" class="btn btn-primary btn-large">Peep the source &raquo;</a></p>
+      </div>
+
+        {% macro render_section(data) -%}
+          {{ caller () }}
+          {% for row in data.items()|batch(3) %}
+      <div class="row">
+              {% for name, datum in row %}
+                  <div class="span4">
+                      <h3>{{name}}</h3>
+                      <img class='gravatar' src="{{datum['gravatar']}}"></img>
+                      {% if not datum['knowledge'] %}
+                          <p>We're not sure where {{name}} is...</p>
+                      {% else %}
+                          {% for device, locations in datum['knowledge'].items() %}
+                              {% for location in locations %}
+                                  <p><strong>{{name}}'s</strong>
+                                  {{device}} is checked in at
+                                  <strong>{{location}}</strong>.</p>
+                              {% endfor %}
+                          {% endfor %}
+                          <p><a class="btn" href="/user/{{name}}/">
+                          View details &raquo;</a></p>
+                      {% endif %}
+                  </div>
+              {% endfor %}
+      </div>
+          {% endfor %}
+      {%- endmacro %}
+
+        {% if in_data %}
+            {% call render_section(in_data) %}
+                <div class="row">
+                    <h2>The doctor is in..</h2>
+                </div>
+            {% endcall %}
+            <hr>
+        {% endif %}
+
+        {% if out_data %}
+            {% call render_section(out_data) %}
+                <div class="row">
+                    <h2>The doctor is out..</h2>
+                </div>
+            {% endcall %}
+        {% endif %}
+
+      <hr>
+
+      <footer>
+        <p>&copy; Ralph Bean &amp; contributors, 2013</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/bootstrap-transition.js"></script>
+    <script src="static/js/bootstrap-alert.js"></script>
+    <script src="static/js/bootstrap-modal.js"></script>
+    <script src="static/js/bootstrap-dropdown.js"></script>
+    <script src="static/js/bootstrap-scrollspy.js"></script>
+    <script src="static/js/bootstrap-tab.js"></script>
+    <script src="static/js/bootstrap-tooltip.js"></script>
+    <script src="static/js/bootstrap-popover.js"></script>
+    <script src="static/js/bootstrap-button.js"></script>
+    <script src="static/js/bootstrap-collapse.js"></script>
+    <script src="static/js/bootstrap-carousel.js"></script>
+    <script src="static/js/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>
