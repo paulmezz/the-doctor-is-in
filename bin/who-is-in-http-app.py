@@ -35,7 +35,12 @@ def load_data():
     """ Ping all the slave nodes and return the aggregate data """
     results = {}
     for name, base_url in children.items():
-        results[name] = json.loads(urllib.urlopen(base_url).read())
+        try:
+            results[name] = json.loads(urllib.urlopen(base_url).read())
+        except Exception as e:
+            print " ** PROBLEM loading data for %r: %r" % (name, e)
+
+
     return results
 
 
