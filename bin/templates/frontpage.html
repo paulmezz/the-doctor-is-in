@@ -24,11 +24,11 @@
     <![endif]-->
 
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="static/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="static/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="static/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="static/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="static/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="static/ico/apple-touch-icon-144-precomposed.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="static/ico/apple-touch-icon-114-precomposed.png"/>
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="static/ico/apple-touch-icon-72-precomposed.png"/>
+                    <link rel="apple-touch-icon-precomposed" href="static/ico/apple-touch-icon-57-precomposed.png"/>
+                                   <link rel="shortcut icon" href="static/ico/favicon.png"/>
   </head>
 
   <body>
@@ -55,20 +55,21 @@
         <p><a href="https://github.com/paulmezz/the-doctor-is-in/" class="btn btn-primary btn-large">Peep the source &raquo;</a></p>
       </div>
 
-      <!-- Example row of columns -->
+        {% macro render_section(data) -%}
+          {{ caller () }}
           {% for row in data.items()|batch(3) %}
       <div class="row">
               {% for name, datum in row %}
                   <div class="span4">
-                      <h2>{{name}}</h2>
+                      <h3>{{name}}</h3>
                       <img class='gravatar' src="{{datum['gravatar']}}"></img>
                       {% if not datum['knowledge'] %}
                           <p>We're not sure where {{name}} is...</p>
                       {% else %}
                           {% for device, locations in datum['knowledge'].items() %}
                               {% for location in locations %}
-                                  <p><strong>{{name}}</strong> has their
-                                  {{device}} checked in at
+                                  <p><strong>{{name}}'s</strong>
+                                  {{device}} is checked in at
                                   <strong>{{location}}</strong>.</p>
                               {% endfor %}
                           {% endfor %}
@@ -79,6 +80,24 @@
               {% endfor %}
       </div>
           {% endfor %}
+      {%- endmacro %}
+
+        {% if in_data %}
+            {% call render_section(in_data) %}
+                <div class="row">
+                    <h2>The doctor is in..</h2>
+                </div>
+            {% endcall %}
+            <hr>
+        {% endif %}
+
+        {% if out_data %}
+            {% call render_section(out_data) %}
+                <div class="row">
+                    <h2>The doctor is out..</h2>
+                </div>
+            {% endcall %}
+        {% endif %}
 
       <hr>
 

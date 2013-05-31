@@ -103,7 +103,13 @@ def front():
         (username, get_user_data(username))
         for username in all_usernames
     ])
-    return flask.render_template("frontpage.html", data=data)
+
+    in_data = dict([(k, v) for k, v in data.items() if v['knowledge']])
+    out_data = dict([(k, v) for k, v in data.items() if not v['knowledge']])
+
+    return flask.render_template("frontpage.html",
+                                 in_data=in_data,
+                                 out_data=out_data)
 
 
 if __name__ == "__main__":
