@@ -1,34 +1,25 @@
 #!/usr/bin/env python
-""" A front-facing http app to show who is where.
+""" $ who-is-in-http-app.py
+
+A front-facing http app to show who is where: the "master" page.
 
 :Author:    Ralph Bean
 :License:   GPLv2+
-
 """
 
+import argparse
 import flask
 import json
+import yaml
 import random
 import urllib
 import hashlib
 
-
 app = flask.Flask(__name__)
-
-# TODO -- someday move this to a config file or CLI switches
-port = 9000
-host = 'localhost'
-# This is a dict of locations of the micro http services
-children = {
-    "here": "http://localhost:9123",
-}
-# XXX - Be careful with this.  It allows remote code execution
-debug = True
-
-known_emails = {
-    'threebean': 'rbean@redhat.com',
-    'paulmezz': 'paul@themezz.com',
-}
+email_file = default_email_file = "emails.yaml"
+children_file = default_children_file = "children.yaml"
+children = None
+known_emails = None
 
 
 def load_data():
@@ -39,7 +30,6 @@ def load_data():
             results[name] = json.loads(urllib.urlopen(base_url).read())
         except Exception as e:
             print " ** PROBLEM loading data for %r: %r" % (name, e)
-
 
     return results
 
@@ -95,9 +85,49 @@ def front():
                                  out_data=out_data)
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(__doc__)
+    parser.add_argument(
+        "-P", "--port", default=9123, type=int, dest="port",
+        help="Port to run on",
+    )
+    parser.add_argument(
+        "-H", "--host", default="localhost", dest="host",
+        help="Host/interface to run as/bind to",
+    )
+    parser.add_argument(
+        "-d", "--debug", action="store_true", default=False, dest="debug",
+        help="Run service in debug mode?  WARNING - allows remote code exec.",
+    )
+    parser.add_argument(
+        "-c", "--children-file", dest="children_file",
+        default=default_children_file,
+        help="Location on disk of a JSON file defining what children to query."
+    )
+    parser.add_argument(
+        "-e", "--email-file", dest="email_file",
+        default=default_email_file,
+        help="Location on disk of a JSON file defining known emails.",
+    )
+    return parser.parse_args()
+
+def initialize_from_config_files():
+    global children, known_emails
+
+    with open(children_file, 'r') as f:
+        children = yaml.load(f.read())
+    with open(email_file, 'r') as f:
+        known_emails = yaml.load(f.read())
+
 if __name__ == "__main__":
+    args = parse_args()
+    children_file = args.children_file
+    email_file = args.email_file
+
+    initialize_from_config_files()
+
     app.run(
-        host=host,
-        port=port,
-        debug=debug,
+        host=args.host,
+        port=args.port,
+        debug=args.debug,
     )
