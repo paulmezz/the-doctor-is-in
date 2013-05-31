@@ -75,24 +75,11 @@ def get_all_usernames():
     results = set()
     for location, subdict in data.items():
         results = results.union(set(subdict.keys()))
-    print results, "is all usernames"
     return list(results)
 
 
 def get_location_data(location):
     raise NotImplementedError("wat")
-
-
-@app.route("/user/<username>/")
-def by_user(username):
-    results = get_user_data(username)
-    return flask.render_template("username.html", results=results)
-
-
-@app.route("/location/<location>/")
-def by_location(location):
-    data = get_location_data(location)
-    return flask.render_template("location.html", results=data[location])
 
 
 @app.route("/")
