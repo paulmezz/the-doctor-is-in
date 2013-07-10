@@ -44,3 +44,8 @@ Portability
 Secure(ish)
 	Make it hard to man-in-the-middle or inject messages.
 	Make it easy to opt-out/in
+
+License
+-------
+
+GPLv2+

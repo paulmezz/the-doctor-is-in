@@ -4,4 +4,10 @@
     border-radius: 64px;
     -webkit-border-radius: 64px;
     -moz-border-radius: 64px;
+    display: block;
+    margin: 0 auto;
+}
+
+.centered {
+    text-align: center;
 }
