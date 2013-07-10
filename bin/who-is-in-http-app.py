@@ -15,6 +15,8 @@ import random
 import urllib
 import hashlib
 
+from collections import OrderedDict as odict
+
 app = flask.Flask(__name__)
 email_file = default_email_file = "etc/emails.yaml"
 children_file = default_children_file = "etc/children.yaml"
@@ -65,20 +67,20 @@ def get_all_usernames():
     results = set()
     for location, subdict in data.items():
         results = results.union(set(subdict.keys()))
-    return list(results)
+    return sorted(list(results))
 
 
 @app.route("/")
 def front():
     all_usernames = get_all_usernames()
-    random.shuffle(all_usernames)
-    data = dict([
+    #random.shuffle(all_usernames)
+    data = odict([
         (username, get_user_data(username))
         for username in all_usernames
     ])
 
-    in_data = dict([(k, v) for k, v in data.items() if v['knowledge']])
-    out_data = dict([(k, v) for k, v in data.items() if not v['knowledge']])
+    in_data = odict([(k, v) for k, v in data.items() if v['knowledge']])
+    out_data = odict([(k, v) for k, v in data.items() if not v['knowledge']])
 
     return flask.render_template("frontpage.html",
                                  in_data=in_data,
