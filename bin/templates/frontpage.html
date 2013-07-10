@@ -49,11 +49,13 @@
     <div class="container">
 
       <!-- Main hero unit for a primary marketing message or call to action -->
+      <!--
       <div class="hero-unit">
           <h1>Where are these people?</h1>
           <p>We're monitoring select persons via bluetooth.  Do you know where they are?</p>
         <p><a href="https://github.com/paulmezz/the-doctor-is-in/" class="btn btn-primary btn-large">Peep the source &raquo;</a></p>
       </div>
+      -->
 
         {% macro render_section(data) -%}
           {{ caller () }}
@@ -73,8 +75,10 @@
                                   <strong>{{location}}</strong>.</p>
                               {% endfor %}
                           {% endfor %}
+                          <!--
                           <p><a class="btn" href="/user/{{name}}/">
                           View details &raquo;</a></p>
+                          -->
                       {% endif %}
                   </div>
               {% endfor %}
