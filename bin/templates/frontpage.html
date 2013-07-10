@@ -62,7 +62,7 @@
           {% for row in data.items()|batch(3) %}
       <div class="row">
               {% for name, datum in row %}
-                  <div class="span4">
+                  <div class="centered span4">
                       <h3>{{name}}</h3>
                       <img class='gravatar' src="{{datum['gravatar']}}"></img>
                       {% if not datum['knowledge'] %}
