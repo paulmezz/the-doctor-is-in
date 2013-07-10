@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    {% if refresh %}
+    <meta http-equiv="refresh" content="{{refresh}}">
+    {% endif %}
 
     <!-- Le styles -->
     <link href="static/css/bootstrap.css" rel="stylesheet">
@@ -49,18 +52,20 @@
     <div class="container">
 
       <!-- Main hero unit for a primary marketing message or call to action -->
+      <!--
       <div class="hero-unit">
           <h1>Where are these people?</h1>
           <p>We're monitoring select persons via bluetooth.  Do you know where they are?</p>
         <p><a href="https://github.com/paulmezz/the-doctor-is-in/" class="btn btn-primary btn-large">Peep the source &raquo;</a></p>
       </div>
+      -->
 
         {% macro render_section(data) -%}
           {{ caller () }}
           {% for row in data.items()|batch(3) %}
       <div class="row">
               {% for name, datum in row %}
-                  <div class="span4">
+                  <div class="centered span4">
                       <h3>{{name}}</h3>
                       <img class='gravatar' src="{{datum['gravatar']}}"></img>
                       {% if not datum['knowledge'] %}
@@ -73,8 +78,10 @@
                                   <strong>{{location}}</strong>.</p>
                               {% endfor %}
                           {% endfor %}
+                          <!--
                           <p><a class="btn" href="/user/{{name}}/">
                           View details &raquo;</a></p>
+                          -->
                       {% endif %}
                   </div>
               {% endfor %}
@@ -103,6 +110,9 @@
 
       <footer>
         <p>&copy; Ralph Bean &amp; contributors, 2013</p>
+        <p>This website is free software.  You can find
+        the source
+        <a href="https://github.com/paulmezz/the-doctor-is-in">here</a></p>
       </footer>
 
     </div> <!-- /container -->
