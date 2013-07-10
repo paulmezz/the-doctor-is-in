@@ -48,9 +48,12 @@ def ping_all(args, doctors, bluetooth_addresses):
         for device, btaddr in btaddrs.items():
             key = "%s/%s" % (username, device)
             if args.verbose:
-                print("  * Checking %r -> %r" % (key, btaddr))
+                print("  * Checking %r -> %r" % (key, btaddr), end='')
+		sys.stdout.flush()
             result = os.system(cmd.format(btaddr=btaddr))
             newval = result is 0
+            if args.verbose:
+                print(" | %r (%r)" % (newval, result))
             set_value(doctors, username, device, newval)
 
 
