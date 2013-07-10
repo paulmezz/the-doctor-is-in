@@ -79,12 +79,18 @@ def front():
         for username in all_usernames
     ])
 
+    try:
+        refresh = int(flask.request.args.get('refresh', 0))
+    except:
+        refresh = None
+
     in_data = odict([(k, v) for k, v in data.items() if v['knowledge']])
     out_data = odict([(k, v) for k, v in data.items() if not v['knowledge']])
 
     return flask.render_template("frontpage.html",
                                  in_data=in_data,
-                                 out_data=out_data)
+                                 out_data=out_data,
+                                 refresh=refresh)
 
 
 def parse_args():
