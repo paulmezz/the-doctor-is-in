@@ -5,12 +5,9 @@
 # This is just an example for development.  The file
 # we end up distributing to nodes should be kept secret.
 
-karen:
-    phone:  '5C:6B:32:49:36:B6'
 
 emilio:
     phone:  '04:E4:51:10:10:B0'
-    pebble: '00:18:33:E4:F2:F0'
 
 threebean:
     phone:  'E0:75:7D:39:56:C4'
