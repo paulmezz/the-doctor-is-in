@@ -1,19 +1,23 @@
-Some coworkers have a screen outside their office area which displays
-which people are "in" or "out".  They have it plugged into a raspberry
-pi with a bluetooth dongle which is paired to everyone's phones.
-
-We are hoping to make a less "hacky" version of that code.  
-
-
-
 Current State:
-	Some base scripts exist.  We can scan for hosts and update a 
-	file in /tmp with status
+	Bluetooth scanning service works. We can scan for hosts and update a 
+	file in /tmp with status. 
+        Bluetooth modules are cloned so they all have the same MAC.  All
+        pairing information is copied between nodes (manually so far).
 
 	Small web service to host /tmp file to master web server
 
-	Began master web service that will generate the where-are-you pages
+	Master web service that will generate the where-are-you pages exists
+        (looks damn good too)
 
+ToDo:
+    Figure out if wireless (802.11) is a good method to scan too
+    XMPP bot
+    IRC bot
+    Make services for auto starting
+    Make scripts to ease cloning of bluetooth dongles
+    Make scripts to ease moving of pairing info
+
+--------------
 Design goals:
 
 Highly Modular design.
@@ -21,19 +25,18 @@ Highly Modular design.
 		Not that it will always make sense, why host status info
 		if you aren't scanning for fresh data?
 	Currently planned modules:
-		Bluetooth scanner
-		Status daemon
-		Master web page for in/out display
+		Bluetooth scanner (done, requires pairing for optimal performance)
+		Status daemon (done)
+		Master web page for in/out display (done)
 		Management Interface
 
-Multiple screens in communication with each other.
+Multiple screens in communication with each other. (done)
 	instead of "in" or "out" it can specify location
 		"Emilio is IN Research Computing"
 		"Paul is OUT"
 
 Ease method of pairing devices.  
 	Perhaps even sniffing wireless and just looking for a mac address
-	Eventual goal of working with all phones.  iPhones seem to be picky
 
 Simple management interface
 	Web pages are pretty.  Lets manage from that.  
