@@ -1,8 +1,12 @@
 Current State:
+
+2013/10/29
+	Bluetooth pairing no longer needed!  Apparently a feature request does not require pairing
+		-this does sometimes throw an odd socket error but the results seem valid
+
+Older:
 	Bluetooth scanning service works. We can scan for hosts and update a 
 	file in /tmp with status. 
-        Bluetooth modules are cloned so they all have the same MAC.  All
-        pairing information is copied between nodes (manually so far).
 
 	Small web service to host /tmp file to master web server
 
@@ -10,12 +14,14 @@ Current State:
         (looks damn good too)
 
 ToDo:
-    Figure out if wireless (802.11) is a good method to scan too
-    XMPP bot
-    IRC bot
-    Make services for auto starting
-    Make scripts to ease cloning of bluetooth dongles
-    Make scripts to ease moving of pairing info
+	-Figure out if wireless (802.11) is a good method to scan too
+	-Put the logic in for multiple Bluetooth radios scanning in parallel
+	-XMPP bot
+	-IRC bot
+	-Make services for auto starting
+	-Make front end web app more robust for when scanners are down
+
+	-NFS boot/root setup?  
 
 --------------
 Design goals:
@@ -25,7 +31,7 @@ Highly Modular design.
 		Not that it will always make sense, why host status info
 		if you aren't scanning for fresh data?
 	Currently planned modules:
-		Bluetooth scanner (done, requires pairing for optimal performance)
+		Bluetooth scanner (done)
 		Status daemon (done)
 		Master web page for in/out display (done)
 		Management Interface
@@ -34,9 +40,6 @@ Multiple screens in communication with each other. (done)
 	instead of "in" or "out" it can specify location
 		"Emilio is IN Research Computing"
 		"Paul is OUT"
-
-Ease method of pairing devices.  
-	Perhaps even sniffing wireless and just looking for a mac address
 
 Simple management interface
 	Web pages are pretty.  Lets manage from that.  

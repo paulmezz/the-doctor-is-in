@@ -9,10 +9,6 @@ based on
     who is in via bash
     Emilio Del Plato 5/14/2013
 
-example ping to bt device::
-
-    $ l2ping 5C:6B:32:49:36:B6 -c 3
-
 """
 
 from __future__ import print_function
@@ -25,7 +21,7 @@ import os
 import sys
 import time
 
-cmd = "sudo l2ping {btaddr} -c 3 > /dev/null 2>&1"
+cmd = "sudo hcitool info {btaddr} | grep 'Device Name'> /dev/null 2>&1"
 
 default_bluetooth_addresses_file = "etc/bluetooth.yaml"
 
